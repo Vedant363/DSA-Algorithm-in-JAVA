@@ -1,0 +1,28 @@
+import java.util.Scanner;
+import java.math.BigInteger;
+
+public class LargeSq {
+    public static long countDigits(BigInteger a) {
+        return a.toString().length();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the number : ");
+        BigInteger n = sc.nextBigInteger();
+        long cd = countDigits(n);
+        long z = cd % 2;
+        long d = cd / 2;
+        BigInteger y = BigInteger.TEN;
+        BigInteger d0 = n.divide(y.pow((int) (d + z)));
+        System.out.println("First Half = " + d0 + " X 10^" + (d + z));
+        BigInteger a1 = d0.multiply(y.pow((int) (d + z)));
+        BigInteger a0 = n.mod(y.pow((int) (d + z)));
+        System.out.println("Second Half = " + a0);
+        BigInteger result = a1.multiply(a1)
+                .add(a1.multiply(a0).multiply(BigInteger.valueOf(2)))
+                .add(a0.multiply(a0));
+        System.out.println("\nOutput : " + result + "\n");
+        sc.close();
+    }
+}

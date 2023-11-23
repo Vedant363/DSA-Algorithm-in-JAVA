@@ -1,0 +1,53 @@
+import java.util.Scanner;
+
+public class FloydWarshall {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int numberOfVertices = 4, E = 214748364;
+        int x = 0;
+        int graphMatrix[][] = new int[numberOfVertices][numberOfVertices];
+        System.out.println("Enter the initial matrix values: (for infinite value, enter -1)");
+        for (int i = 0; i < numberOfVertices; i++) {
+            for (int j = 0; j < numberOfVertices; j++) {
+                x = sc.nextInt();
+                if (x == -1)
+                    graphMatrix[i][j] = E;
+                else
+                    graphMatrix[i][j] = x;
+            }
+        }
+        System.out.println("\n\n");
+        System.out.println("Intial Matrix: \n");
+        for (int i = 0; i < numberOfVertices; i++) {
+            for (int j = 0; j < numberOfVertices; j++) {
+                if (graphMatrix[i][j] == E)
+                    System.out.print("E ");
+                else
+                    System.out.print(graphMatrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+        for (int k = 0; k < numberOfVertices; k++) {
+            for (int i = 0; i < numberOfVertices; i++) {
+                for (int j = 0; j < numberOfVertices; j++) {
+                    graphMatrix[i][j] = (graphMatrix[i][j] < (graphMatrix[i][k] +
+                            graphMatrix[k][j])) ? graphMatrix[i][j]
+                                    : (graphMatrix[i][k] +
+                                            graphMatrix[k][j]);
+                }
+            }
+        }
+        System.out.println("\n\n");
+        System.out.println("Final Matrix: \n");
+        for (int i = 0; i < numberOfVertices; i++) {
+            for (int j = 0; j < numberOfVertices; j++) {
+                if (graphMatrix[i][j] == E)
+                    System.out.print("E ");
+                else
+                    System.out.print(graphMatrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+        sc.close();
+    }
+}

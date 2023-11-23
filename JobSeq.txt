@@ -1,0 +1,92 @@
+import java.util.Scanner;
+
+public class JobSeq {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int job[] = new int[10];
+        int profit[] = new int[10];
+        int deadline[] = new int[10];
+        int n;
+        int maxDeadline;
+        System.out.print("No. of jobs : ");
+        n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            job[i] = i + 1;
+            System.out.println("For Job no. " + (i + 1) + " :");
+            System.out.print("Profit : ");
+            profit[i] = sc.nextInt();
+            System.out.print("Deadline : ");
+            deadline[i] = sc.nextInt();
+            System.out.println();
+        }
+        sortArray(profit, deadline, job, n);
+        System.out.print("Jobs : ");
+        for (int i = 0; i < n; i++) {
+            System.out.print(job[i] + " ");
+        }
+        System.out.println();
+        System.out.print("Profit : ");
+        for (int i = 0; i < n; i++) {
+            System.out.print(profit[i] + " ");
+        }
+        System.out.println();
+        System.out.print("Deadline : ");
+        for (int i = 0; i < n; i++) {
+            System.out.print(deadline[i] + " ");
+        }
+        System.out.println();
+        maxDeadline = deadline[0];
+        for (int i = 0; i < n; i++) {
+            if (maxDeadline < deadline[i]) {
+                maxDeadline = deadline[i];
+            }
+        }
+        System.out.println();
+        System.out.println("Max Deadline: " + maxDeadline);
+        int x[] = new int[maxDeadline];
+        int totalProfit = 0;
+        for (int i = 0; i < n; i++) {
+            int pp = deadline[i];
+            pp = pp - 1;
+            if (x[pp] == 0) {
+                x[pp] = job[i];
+                totalProfit += profit[i];
+            } else {
+                while (pp != -1) {
+                    if (x[pp] == 0) {
+                        x[pp] = job[i];
+                        totalProfit += profit[i];
+                        break;
+                    }
+                    pp = pp - 1;
+                }
+            }
+        }
+        System.out.print("Job Sequence: ");
+        for (int i = 0; i < maxDeadline; i++) {
+            System.out.print(x[i] + " --> ");
+        }
+        System.out.println("NULL");
+        System.out.println();
+        System.out.println("Total Profit: " + totalProfit);
+        sc.close();
+    }
+
+    public static void sortArray(int profit[], int deadline[], int job[], int n) {
+        for (int i = 0; i < n; i++) {
+            int j = i;
+            int z = job[i];
+            int y = profit[i];
+            int x = deadline[i];
+            while ((j > 0) && (profit[j - 1] < y)) {
+                profit[j] = profit[j - 1];
+                deadline[j] = deadline[j - 1];
+                job[j] = job[j - 1];
+                j--;
+            }
+            job[j] = z;
+            profit[j] = y;
+            deadline[j] = x;
+        }
+    }
+}
