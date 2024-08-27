@@ -1,0 +1,57 @@
+public class Main{
+    public static void main (String[] args) {
+        int[] arr = {10,20,25,30,40,50};
+        int x = 25;
+        findFloor(arr,x);
+        findCeil(arr,x);
+        upperbound(arr,x);
+    }
+    
+    //largest no. <= x
+    public static void findFloor(int[] arr,int x){
+        int l = 0;
+        int h = arr.length - 1;
+        int ans = -1;
+        while(l<=h){
+            int mid = (l+h)/2;
+            if(arr[mid]<=x){
+                ans = arr[mid];
+                l = mid + 1;
+            }
+            else h = mid - 1;
+        }
+        System.out.println(ans);
+    }
+    
+    // smallest no. >= x
+    public static void findCeil(int[] arr,int x){
+        int l = 0;
+        int h = arr.length - 1;
+        int ans = arr.length;
+        while(l<=h){
+            int mid = (l+h)/2;
+            if(arr[mid]>=x){
+                ans = arr[mid];
+                h = mid - 1;
+            }
+            else l = mid + 1;
+        }
+        System.out.println(ans);
+    }
+    
+    // smallest no. > x
+    public static void upperbound(int[] arr,int x){
+        int l = 0;
+        int h = arr.length - 1;
+        int ans = arr.length;
+        while(l<=h){
+            int mid = (l+h)/2;
+            if(arr[mid]>x){
+                ans = arr[mid];
+                h = mid - 1;
+            }
+            else l = mid + 1;
+        }
+        System.out.println(ans);
+    }
+}
